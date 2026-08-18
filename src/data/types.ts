@@ -16,6 +16,7 @@ export interface ClusterNode {
   role: string
   status: HealthStatus
   labels: string[]
+  description: string
   usage: { cpu: number; memory: number; pods: number }
   capacity: { cpu: number; memory: number; pods: number }
 }
