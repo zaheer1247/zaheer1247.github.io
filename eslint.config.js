@@ -13,6 +13,7 @@ export default defineConfig([
     languageOptions: { ecmaVersion: 2020, globals: { document: 'readonly', window: 'readonly' }, parser: tsParser, parserOptions: { ecmaFeatures: { jsx: true } } },
     plugins: { '@typescript-eslint': tsPlugin, 'react-hooks': reactHooks, 'react-refresh': reactRefresh },
     rules: {
+      'no-unused-vars': 'off',
       ...reactHooks.configs['recommended-latest'].rules,
       ...reactRefresh.configs.vite.rules,
     },

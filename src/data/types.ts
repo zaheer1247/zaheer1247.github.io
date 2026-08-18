@@ -31,6 +31,7 @@ export interface PortfolioPod {
   title: string
   summary: string
   technologies: string[]
+  metadata?: Array<{ label: string; value: string }>
 }
 
 export interface ClusterEvent {
