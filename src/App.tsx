@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { ClusterBoot } from './components/ClusterBoot'
+import { hasCompletedIntro } from './data/intro'
 import { ClusterHeader } from './components/ClusterHeader'
 import { EventLog } from './components/EventLog'
 import { MetricCard } from './components/MetricCard'
@@ -7,7 +10,10 @@ import { Pod } from './components/Pod'
 import { cluster, events, nodes, pods, profileSections } from './data/cluster'
 
 export default function App() {
+  const [introComplete, setIntroComplete] = useState(hasCompletedIntro)
   const runningPods = pods.filter((pod) => pod.status === 'healthy').length
+
+  if (!introComplete) return <ClusterBoot onComplete={() => setIntroComplete(true)} />
 
   return <div className="app-shell">
     <ClusterHeader cluster={cluster} />
