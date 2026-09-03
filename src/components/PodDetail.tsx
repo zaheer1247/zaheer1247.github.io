@@ -24,7 +24,7 @@ export function PodDetail({ pod, nodeName }: { pod: PortfolioPod; nodeName: stri
     <div className="pod-detail__heading"><div><p className="eyebrow">Pod / {pod.namespace}</p><h2>{pod.name}</h2></div><StatusBadge status={pod.status} label={label} /></div>
     <p className="pod-detail__summary">{pod.summary}</p>
     <dl className="pod-detail__metadata"><div><dt>Node</dt><dd>{nodeName}</dd></div><div><dt>Status</dt><dd className={`pod-detail__running pod-detail__running--${pod.status}`}><i />{label}</dd></div>{pod.metadata?.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl>
-    {isProvisioning && <div className="provisioning-bar" role="progressbar" aria-label="Provisioning in progress"><i /><span>rollout in progress — not yet scheduled complete</span></div>}
+    {isProvisioning && <div className="provisioning-bar" role="progressbar" aria-label="Provisioning in progress" aria-valuetext="In progress"><i /><span>rollout in progress — not yet scheduled complete</span></div>}
     {pod.capabilities && <div className="capability-map"><span className="eyebrow">Capability map</span><div className="capability-map__groups">{pod.capabilities.map((group) => (
       <div key={group.apiGroup} className="capability-group">
         <span className="capability-group__label">kind: {group.apiGroup}</span>
