@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
 import { markIntroComplete } from './data/intro'
@@ -21,5 +21,14 @@ describe('App', () => {
     window.history.replaceState(null, '', '/?node=projects&pod=k8s-ai-agent')
     render(<App />)
     expect(screen.getByRole('heading', { name: 'k8s-ai-agent' })).toBeInTheDocument()
+  })
+
+  it('surfaces role, years of experience, and a resume download in the hero', () => {
+    const { container } = render(<App />)
+    const hero = within(container.querySelector('.hero') as HTMLElement)
+    expect(hero.getByText('Quality Engineer III')).toBeInTheDocument()
+    expect(hero.getByText('11+ years')).toBeInTheDocument()
+    const resumeLink = hero.getByRole('link', { name: /download resume/i })
+    expect(resumeLink).toHaveAttribute('href', '/zaheer-abbas-resume.pdf')
   })
 })
