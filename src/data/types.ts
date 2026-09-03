@@ -76,6 +76,17 @@ export interface PortfolioPod {
   // Overrides the generic status label for this pod only (e.g. a certification pod that is
   // actively being pursued reads "Provisioning" rather than the generic "Rolling out").
   statusLabel?: string
+  // Pod-specific activity history — rendered in the "Node activity" sidebar instead of the
+  // generic node-derived event stream when present, so the log can tell a real per-workload
+  // story (e.g. a project's build/deploy history) rather than only ever saying "NodeSelected".
+  events?: ClusterEvent[]
+  // Real target exam date (e.g. '2026-03-15') for an in-progress certification pod. Optional
+  // and intentionally left unset until a real date exists — never invent one.
+  targetDate?: string
+  // Real completion percentage (0-100) for an in-progress certification pod. Optional and
+  // intentionally left unset until a real figure exists — the indeterminate provisioning-bar
+  // sweep is used whenever this is absent.
+  progress?: number
 }
 
 export interface ClusterEvent {

@@ -55,9 +55,10 @@ npm install
 npm run dev
 npm run build
 npm run lint
+npm run test
 ```
 
-`npm run build` and `npm run lint` should pass before handoff.
+`npm run build`, `npm run lint`, and `npm run test` should pass before handoff.
 
 ## Stack
 
@@ -100,6 +101,8 @@ metadata: [
 - `details: Array<{ label: string; items: string[] }>` — longer-form bullet groups (Responsibilities, Key achievements, Key technical decisions, What I learned) rendered by `DetailGroups`.
 - `architecture: string[]` — an ordered stage list for `ProjectPod`'s architecture-flow diagram.
 - `statusLabel: string` — overrides the generic status label for this one pod (see `podStatusLabel` below).
+- `events: ClusterEvent[]` — pod-specific activity history rendered in the "Node activity" sidebar instead of the generic node-derived event stream (see `App.tsx`'s `selectionEvents`). Populated for pods with a real, non-generic story (identity/experience/project/certification pods); node-02 skill pods fall back to the generic stream since they're static concept lists.
+- `targetDate: string` / `progress: number` — real exam date / completion percentage for an in-progress certification pod. Schema exists but intentionally unset everywhere — never invent a value here (see Guardrails).
 
 `ClusterNode.progression?: { stages: string[]; currentIndex: number }` drives the `Node` component's rollout strip (currently only `node-03`).
 
@@ -140,18 +143,21 @@ Completed:
 - Pod/status labels ("Running", "Rolling out", "Degraded", "Terminated") are now driven by `statusLabels` in `data/types.ts` instead of being hardcoded per component — required so the `pending` `career-rollout` pod renders correctly, and removes a latent bug where every pod always said "Running" regardless of its real `status`.
 - A production-ready external-access surface: `External access` panel (`kind: Ingress` framing) linking to GitHub, LinkedIn, and email, backed by `externalAccess`/`IngressEndpoint` in `data/cluster.ts` and `data/types.ts`.
 - SEO/meta pass on `index.html`: title, description, OG/Twitter tags, canonical URL, a new brand-consistent favicon (reuses the in-app "K" mark instead of the old terminal-style icon), and a Person JSON-LD block.
-- GitHub Pages deploy workflow (`.github/workflows/deploy.yml`) now actually builds the app (`npm ci && npm run build`) and publishes `dist/`, split into build/deploy jobs. Previously it uploaded the raw repo root with no build step, which would have shipped a non-functional page.
+- GitHub Pages deploy workflow (`.github/workflows/deploy.yml`) now actually builds the app (`npm ci && npm run build`) in a dedicated `build` job and publishes `./dist` (not the repo root), with a separate `deploy` job depending on it. This is a real fix as of 2026-09-04 — an earlier version of this doc claimed this was already done, but the workflow was still uploading the raw repo root with no build step, which would have shipped a non-functional page.
 - `node.usage.pods` values now match the real pod counts per node (previously out of sync for `identity` and `engineering`).
+- The LinkedIn URL, GitHub handle, and email used in `externalAccess` and the JSON-LD block were confirmed current by Zaheer on 2026-09-04.
+- URL deep linking: `App.tsx` reads `?node=&pod=` on load (validated against real `nodes`/`pods`, falling back to defaults for anything stale/invalid) and keeps the URL in sync via `history.replaceState` as selection changes — no extra history entries per click.
+- Per-pod event history: `PortfolioPod.events?` (see above) — populated for identity, experience, project, and certification pods; `App.tsx`'s `selectionEvents` prefers `selectedPod.events` over the generic node-derived stream when present.
+- A social preview image: `public/og-image.svg` (1200×630, on-brand dark/gradient "K" mark), referenced by `og:image`/`twitter:image` in `index.html`. It's SVG-only — no image rasterizer (ImageMagick/rsvg-convert/PIL) was available in the build environment, and some scrapers (notably older Twitter/X) render OG images more reliably as PNG/JPG than SVG. Converting `og-image.svg` to a 1200×630 PNG and swapping the `index.html` references is a quick follow-up if social-preview fidelity matters.
+- Automated interaction tests: Vitest + React Testing Library (`npm run test`), jsdom environment configured in `vite.config.ts`, setup file at `src/setupTests.ts`. Covers `podStatusLabel` override behavior (`src/data/types.test.ts`) and dashboard rendering + URL-driven selection (`src/App.test.tsx`).
 
 Not yet implemented / needs your input:
 
-- Confirmation that the LinkedIn URL, GitHub handle, and email used in `externalAccess` and the JSON-LD block (recovered from the old `master` branch's history) are still current before this goes live.
-- Per-pod context-specific event history instead of the current node-derived event stream.
-- Navigation/deep links and URL-addressable selection.
-- A social preview image (`og:image`) — currently text-only Open Graph/Twitter cards.
-- Automated interaction tests.
 - Dates for the certifications/projects in `node-05` / `node-04` — none were available, so none are shown; the UI only states issuer/track, not "earned on X date".
-- Real target exam dates or completion percentages for the four in-progress node-05 certs (`cka-pod`, `rhcsa-rhce-pod`, `terraform-cert-pod`, `aws-sa-pod`) — none invented; the provisioning bar is deliberately indeterminate. Add them once real dates/percentages exist.
+- Real target exam dates or completion percentages for the four in-progress node-05 certs (`cka-pod`, `rhcsa-rhce-pod`, `terraform-cert-pod`, `aws-sa-pod`) — the `targetDate`/`progress` schema fields exist (see above) but are unset everywhere; none invented. The provisioning bar stays deliberately indeterminate until real values exist.
+- Converting `public/og-image.svg` to a rasterized PNG for broader social-scraper compatibility (see above).
+- Deciding whether `dist/` should be removed from git history (`git rm -r --cached dist`) now that CI builds it — see `.gitignore`.
+- Mobile responsiveness was reviewed via the existing CSS breakpoints (1180/820/780/520/460px across topology, sidebar, hero, metrics, node grid, and boot screen) but not visually verified in a real browser/device in this session — no browser tool was available. Worth a manual pass before a major visual change ships.
 
 ## Design constraints
 
@@ -163,9 +169,9 @@ Not yet implemented / needs your input:
 
 ## Suggested next work
 
-1. Confirm the LinkedIn/GitHub/email links recovered from the old `master` branch are still accurate before pushing.
-2. Consider adding URL query state (`?node=identity&pod=profile-pod`) now that the content model is mostly stable.
-3. Design a simple `og:image` for social sharing previews.
+1. Convert `public/og-image.svg` to a rasterized PNG for broader social-scraper compatibility.
+2. Add real target exam dates / completion percentages to the four in-progress node-05 certs once they exist (`targetDate`/`progress` fields are ready).
+3. Do a manual mobile/responsive pass in a real browser — the breakpoints exist and look sound on read-through, but haven't been visually verified this session.
 4. Decide whether `dist/` should be removed from git history (`git rm -r --cached dist`) now that CI builds it — see `.gitignore`.
 5. Decide when/how to point `.github/workflows/deploy.yml`'s branch trigger at this work (Zaheer is handling the branch/Actions update separately).
 

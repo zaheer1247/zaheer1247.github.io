@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ClusterBoot } from './components/ClusterBoot'
 import { hasCompletedIntro } from './data/intro'
 import { ClusterHeader } from './components/ClusterHeader'
@@ -12,22 +12,51 @@ import { StatusBadge } from './components/StatusBadge'
 import { cluster, events, externalAccess, nodes, pods, profileSections } from './data/cluster'
 import { podStatusLabel } from './data/types'
 
+// Reads `?node=&pod=` from the current URL, validating both against real data so a stale or
+// hand-edited link can never select something that no longer exists.
+function initialSelectionFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  const nodeParam = params.get('node')
+  const podParam = params.get('pod')
+  const node = nodes.find((candidate) => candidate.id === nodeParam)
+  if (!node) return { nodeId: nodes[0].id, podId: 'profile' }
+  const pod = pods.find((candidate) => candidate.nodeId === node.id && candidate.id === podParam)
+  const fallbackPod = pods.find((candidate) => candidate.nodeId === node.id)
+  return { nodeId: node.id, podId: pod?.id ?? fallbackPod?.id ?? 'profile' }
+}
+
 export default function App() {
   const [introComplete, setIntroComplete] = useState(hasCompletedIntro)
-  const [selectedNodeId, setSelectedNodeId] = useState(nodes[0].id)
-  const [selectedPodId, setSelectedPodId] = useState('profile')
+  const [selectedNodeId, setSelectedNodeId] = useState(() => initialSelectionFromUrl().nodeId)
+  const [selectedPodId, setSelectedPodId] = useState(() => initialSelectionFromUrl().podId)
   const runningPods = pods.filter((pod) => pod.status === 'healthy').length
   const selectedNode = nodes.find((node) => node.id === selectedNodeId) ?? nodes[0]
   const selectedPods = pods.filter((pod) => pod.nodeId === selectedNode.id)
   const selectedPod = selectedPods.find((pod) => pod.id === selectedPodId) ?? selectedPods[0]
+
+  // Keeps the URL addressable/bookmarkable without adding history entries per click.
+  useEffect(() => {
+    if (!introComplete || !selectedPod) return
+    const params = new URLSearchParams(window.location.search)
+    params.set('node', selectedNode.id)
+    params.set('pod', selectedPod.id)
+    const nextUrl = `${window.location.pathname}?${params.toString()}`
+    window.history.replaceState(null, '', nextUrl)
+  }, [introComplete, selectedNode.id, selectedPod])
+
   // The "Scheduled" line is derived from the selected node's actual first pod (not a
   // hardcoded name) so the activity log can never point at a pod that no longer exists.
   const firstSelectedPod = selectedPods[0]
-  const selectionEvents = [
-    { id: `selected-${selectedNode.id}`, timestamp: 'now', level: 'success' as const, reason: 'NodeSelected', resource: `node/${selectedNode.name}`, message: `${selectedNode.role} workload pool is in focus.` },
-    ...(firstSelectedPod ? [{ id: `${selectedNode.id}-scheduled`, timestamp: '12:48:24', level: 'normal' as const, reason: 'Scheduled', resource: `pod/${firstSelectedPod.name}`, message: `Successfully assigned to ${selectedNode.name}.` }] : []),
-    ...events.map((event) => ({ ...event, id: `${selectedNode.id}-${event.id}`, resource: event.resource.includes('workload') ? `node/${selectedNode.name}` : event.resource })),
-  ]
+  const selectionEvents = selectedPod?.events
+    ? [
+        { id: `selected-${selectedNode.id}`, timestamp: 'now', level: 'success' as const, reason: 'NodeSelected', resource: `node/${selectedNode.name}`, message: `${selectedNode.role} workload pool is in focus.` },
+        ...selectedPod.events,
+      ]
+    : [
+        { id: `selected-${selectedNode.id}`, timestamp: 'now', level: 'success' as const, reason: 'NodeSelected', resource: `node/${selectedNode.name}`, message: `${selectedNode.role} workload pool is in focus.` },
+        ...(firstSelectedPod ? [{ id: `${selectedNode.id}-scheduled`, timestamp: '12:48:24', level: 'normal' as const, reason: 'Scheduled', resource: `pod/${firstSelectedPod.name}`, message: `Successfully assigned to ${selectedNode.name}.` }] : []),
+        ...events.map((event) => ({ ...event, id: `${selectedNode.id}-${event.id}`, resource: event.resource.includes('workload') ? `node/${selectedNode.name}` : event.resource })),
+      ]
 
   if (!introComplete) return <ClusterBoot onComplete={() => setIntroComplete(true)} />
 

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(node -e \"console.log\\(process.version\\)\")",
+      "Bash(gh api *)",
+      "Bash(gh run *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" https://zaheer1247.github.io/)",
+      "Bash(curl -s https://zaheer1247.github.io/)"
+    ]
+  }
+}
