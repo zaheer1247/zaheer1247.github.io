@@ -7,7 +7,12 @@
       "Bash(gh run *)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" https://zaheer1247.github.io/)",
       "Bash(curl -s https://zaheer1247.github.io/)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git diff *)",
+      "Bash(git status *)",
+      "Bash(grep -oE '\\\\{[^{]*$|[A-Za-z.#_-][A-Za-z0-9 .,#:_>\\(\\)-]*\\\\{')",
+      "Bash(python3 -)"
     ]
   }
 }
