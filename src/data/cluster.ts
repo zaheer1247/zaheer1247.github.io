@@ -1,7 +1,7 @@
 import type { ClusterConfig, ClusterEvent, ClusterNode, IngressEndpoint, PortfolioPod, ProfileSection } from './types'
 
 export const cluster: ClusterConfig = {
-  name: 'zaheer-platform', environment: 'production', version: 'v1.30.2', status: 'healthy', region: 'ap-south-1',
+  name: 'zaheer-platform', environment: 'production', version: 'v1.37.0', status: 'healthy', region: 'ap-south-1',
 }
 
 // usage.pods mirrors the real number of PortfolioPod entries scheduled onto each node
