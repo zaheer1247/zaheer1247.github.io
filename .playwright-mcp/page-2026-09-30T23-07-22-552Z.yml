@@ -1,0 +1,344 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#overview"
+  - banner [ref=e5]:
+    - link "K platform/portfolio" [ref=e6] [cursor=pointer]:
+      - /url: "#overview"
+      - generic [ref=e7]: K
+      - generic [ref=e8]: platform/portfolio
+    - generic [ref=e9]:
+      - generic [ref=e10]: ap-south-1
+      - generic [ref=e11]: v1.30.2
+      - generic [ref=e12]: Cluster healthy
+  - main [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]:
+        - paragraph [ref=e17]: production / zaheer-platform
+        - heading [level=1] [ref=e18]:
+          - text: Engineering reliable platforms,
+          - emphasis [ref=e19]: from quality to cloud.
+        - paragraph [ref=e20]: Zaheer Abbas — Quality Engineer III building toward reliable cloud platforms. An interactive portfolio modeled as a healthy Kubernetes cluster; explore it node by node, pod by pod.
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - term [ref=e23]: Role
+            - definition [ref=e24]: Quality Engineer III
+          - generic [ref=e25]:
+            - term [ref=e26]: Runtime
+            - definition [ref=e27]: 11+ years
+          - generic [ref=e28]:
+            - term [ref=e29]: Career target
+            - definition [ref=e30]: Cloud Platform Architect
+          - generic [ref=e31]:
+            - term [ref=e32]: Operating model
+            - definition [ref=e33]: DevOps / SRE
+        - link "Download resume ↓" [ref=e34] [cursor=pointer]:
+          - /url: /zaheer-abbas-resume.pdf
+      - generic [ref=e35]: "System status: all services operational"
+    - region "Cluster metrics" [ref=e38]:
+      - article [ref=e39]:
+        - generic [ref=e40]: Cluster health
+        - strong [ref=e41]: 100%
+        - generic [ref=e42]: All services available
+      - article [ref=e43]:
+        - generic [ref=e44]: Active nodes
+        - strong [ref=e45]: "5"
+        - generic [ref=e46]: Identity to Certifications · 5 workload pools
+      - article [ref=e47]:
+        - generic [ref=e48]: Running pods
+        - strong [ref=e49]: "24"
+        - generic [ref=e50]: Portfolio workloads online
+      - article [ref=e51]:
+        - generic [ref=e52]: Platform focus
+        - strong [ref=e53]: SRE
+        - generic [ref=e54]: Cloud-native engineering
+    - region "Interactive Kubernetes cluster" [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - heading "Cluster topology" [level=2] [ref=e58]
+          - generic [ref=e59]: select a worker node
+        - generic [ref=e60]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: ✦
+            - generic [ref=e65]:
+              - paragraph [ref=e66]: Control plane
+              - strong [ref=e67]: kube-system
+            - generic [ref=e68]: Healthy
+          - generic [ref=e77]:
+            - article [ref=e78] [cursor=pointer]:
+              - button "Explore Identity node" [pressed] [ref=e79]:
+                - generic [ref=e80]:
+                  - generic [ref=e81]:
+                    - paragraph [ref=e82]: worker node / Identity
+                    - heading "node-01" [level=3] [ref=e83]
+                  - generic [ref=e84]: Ready
+                - generic [ref=e86]:
+                  - generic [ref=e87]: profile
+                  - generic [ref=e88]: leadership
+                - generic [ref=e89]:
+                  - generic [ref=e90]:
+                    - text: CPU
+                    - generic [ref=e91]: 22%
+                  - generic [ref=e94]:
+                    - text: Memory
+                    - generic [ref=e95]: 31%
+              - generic "node-01 pods" [ref=e98]:
+                - button "profile-pod" [ref=e99]
+                - button "about-pod" [ref=e102]
+                - button "education-pod" [ref=e105]
+                - button "career-pod" [ref=e108]
+              - generic [ref=e111]:
+                - generic [ref=e112]: 4 pods running
+                - generic [ref=e113]: 4/12 capacity
+            - article [ref=e114] [cursor=pointer]:
+              - button "Explore Engineering node" [ref=e115]:
+                - generic [ref=e116]:
+                  - generic [ref=e117]:
+                    - paragraph [ref=e118]: worker node / Engineering
+                    - heading "node-02" [level=3] [ref=e119]
+                  - generic [ref=e120]: Ready
+                - generic [ref=e122]:
+                  - generic [ref=e123]: kubernetes
+                  - generic [ref=e124]: automation
+                - generic [ref=e125]:
+                  - generic [ref=e126]:
+                    - text: CPU
+                    - generic [ref=e127]: 54%
+                  - generic [ref=e130]:
+                    - text: Memory
+                    - generic [ref=e131]: 63%
+              - generic "node-02 pods" [ref=e134]:
+                - button "linux-pod" [ref=e135]
+                - button "ansible-pod" [ref=e138]
+                - button "kubernetes-pod" [ref=e141]
+                - button "terraform-pod" [ref=e144]
+                - button "cloud-pod" [ref=e147]
+                - button "automation-pod" [ref=e150]
+                - button "observability-pod" [ref=e153]
+              - generic [ref=e156]:
+                - generic [ref=e157]: 7 pods running
+                - generic [ref=e158]: 7/12 capacity
+            - article [ref=e159] [cursor=pointer]:
+              - button "Explore Experience node" [ref=e160]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]:
+                    - paragraph [ref=e163]: worker node / Experience
+                    - heading "node-03" [level=3] [ref=e164]
+                  - generic [ref=e165]: Ready
+                - generic [ref=e167]:
+                  - generic [ref=e168]: career
+                  - generic [ref=e169]: rollout
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - text: CPU
+                    - generic [ref=e172]: 47%
+                  - generic [ref=e175]:
+                    - text: Memory
+                    - generic [ref=e176]: 38%
+                - generic "Rollout progression" [ref=e179]:
+                  - list [ref=e180]:
+                    - listitem "Quality Engineering" [ref=e181]
+                    - listitem "Automation" [ref=e182]
+                    - listitem "Infrastructure" [ref=e183]
+                    - listitem "DevOps" [ref=e184]
+                    - listitem "SRE" [ref=e185]
+                  - generic [ref=e186]: DevOps
+              - generic "node-03 pods" [ref=e187]:
+                - button "quality-engineering-pod" [ref=e188]
+                - button "automation-pod" [ref=e191]
+                - button "infrastructure-pod" [ref=e194]
+                - button "devops-transition-pod Rolling out" [ref=e197]:
+                  - generic [ref=e199]: devops-transition-pod
+                  - generic [ref=e200]: Rolling out
+                - button "career-rollout Rolling out" [ref=e201]:
+                  - generic [ref=e203]: career-rollout
+                  - generic [ref=e204]: Rolling out
+              - generic [ref=e205]:
+                - generic [ref=e206]: 5 pods running
+                - generic [ref=e207]: 5/12 capacity
+            - article [ref=e208] [cursor=pointer]:
+              - button "Explore Projects node" [ref=e209]:
+                - generic [ref=e210]:
+                  - generic [ref=e211]:
+                    - paragraph [ref=e212]: worker node / Projects
+                    - heading "node-04" [level=3] [ref=e213]
+                  - generic [ref=e214]: Ready
+                - generic [ref=e216]:
+                  - generic [ref=e217]: docker
+                  - generic [ref=e218]: kubernetes
+                  - generic [ref=e219]: terraform
+                - generic [ref=e220]:
+                  - generic [ref=e221]:
+                    - text: CPU
+                    - generic [ref=e222]: 58%
+                  - generic [ref=e225]:
+                    - text: Memory
+                    - generic [ref=e226]: 52%
+              - generic "node-04 pods" [ref=e229]:
+                - button "docker-compose-infra" [ref=e230]
+                - button "openshift-learning-series" [ref=e233]
+                - button "flask-cicd-pipeline" [ref=e236]
+                - button "microservices-architecture" [ref=e239]
+                - button "k8s-ai-agent" [ref=e242]
+                - button "aws-terraform-infrastructure" [ref=e245]
+                - button "monitoring-alerting-stack" [ref=e248]
+              - generic [ref=e251]:
+                - generic [ref=e252]: 7 pods running
+                - generic [ref=e253]: 7/12 capacity
+            - article [ref=e254] [cursor=pointer]:
+              - button "Explore Certifications node" [ref=e255]:
+                - generic [ref=e256]:
+                  - generic [ref=e257]:
+                    - paragraph [ref=e258]: worker node / Certifications
+                    - heading "node-05" [level=3] [ref=e259]
+                  - generic [ref=e260]: Ready
+                - generic [ref=e262]:
+                  - generic [ref=e263]: red-hat
+                  - generic [ref=e264]: learning
+                  - generic [ref=e265]: in-progress
+                - generic [ref=e266]:
+                  - generic [ref=e267]:
+                    - text: CPU
+                    - generic [ref=e268]: 24%
+                  - generic [ref=e271]:
+                    - text: Memory
+                    - generic [ref=e272]: 30%
+              - generic "node-05 pods" [ref=e275]:
+                - button "docker-certification" [ref=e276]
+                - button "openshift-training" [ref=e279]
+                - button "ansible-training" [ref=e282]
+                - button "openshift-exam-prep Provisioning" [ref=e285]:
+                  - generic [ref=e287]: openshift-exam-prep
+                  - generic [ref=e288]: Provisioning
+                - button "cka-pod Provisioning" [ref=e289]:
+                  - generic [ref=e291]: cka-pod
+                  - generic [ref=e292]: Provisioning
+                - button "rhcsa-rhce-pod Provisioning" [ref=e293]:
+                  - generic [ref=e295]: rhcsa-rhce-pod
+                  - generic [ref=e296]: Provisioning
+                - button "terraform-cert-pod Provisioning" [ref=e297]:
+                  - generic [ref=e299]: terraform-cert-pod
+                  - generic [ref=e300]: Provisioning
+                - button "aws-sa-pod Provisioning" [ref=e301]:
+                  - generic [ref=e303]: aws-sa-pod
+                  - generic [ref=e304]: Provisioning
+              - generic [ref=e305]:
+                - generic [ref=e306]: 8 pods running
+                - generic [ref=e307]: 8/12 capacity
+      - generic [ref=e308]:
+        - generic [ref=e309]:
+          - generic [ref=e310]:
+            - heading "Node activity" [level=2] [ref=e311]
+            - generic [ref=e312]: Live
+          - list [ref=e313]:
+            - listitem [ref=e314]:
+              - time [ref=e315]: now
+              - generic [ref=e317]:
+                - strong [ref=e318]: NodeSelected
+                - paragraph [ref=e319]: Identity workload pool is in focus.
+                - text: node/node-01
+            - listitem [ref=e320]:
+              - time [ref=e321]: 12:48:24
+              - generic [ref=e323]:
+                - strong [ref=e324]: Scheduled
+                - paragraph [ref=e325]: Successfully assigned to node-01/identity.
+                - text: pod/profile-pod
+            - listitem [ref=e326]:
+              - time [ref=e327]: 12:48:26
+              - generic [ref=e329]:
+                - strong [ref=e330]: Ready
+                - paragraph [ref=e331]: 11+ years of runtime, targeting Cloud Platform Architect.
+                - text: pod/profile-pod
+        - generic [ref=e332]:
+          - generic [ref=e333]:
+            - heading "Pod detail" [level=2] [ref=e334]
+            - generic [ref=e335]: Running
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - generic [ref=e339]:
+                - paragraph [ref=e340]: Pod / identity
+                - heading "profile-pod" [level=2] [ref=e341]
+              - generic [ref=e342]: Running
+            - paragraph [ref=e344]: Quality Engineer III building toward reliable cloud platforms.
+            - generic [ref=e345]:
+              - generic [ref=e346]:
+                - term [ref=e347]: Node
+                - definition [ref=e348]: node-01
+              - generic [ref=e349]:
+                - term [ref=e350]: Status
+                - definition [ref=e351]: Running
+              - generic [ref=e353]:
+                - term [ref=e354]: Role
+                - definition [ref=e355]: Quality Engineer III
+              - generic [ref=e356]:
+                - term [ref=e357]: Runtime
+                - definition [ref=e358]: 11+ years
+              - generic [ref=e359]:
+                - term [ref=e360]: Career target
+                - definition [ref=e361]: Cloud Platform Architect
+              - generic [ref=e362]:
+                - term [ref=e363]: Operating model
+                - definition [ref=e364]: DevOps / SRE
+            - generic [ref=e365]:
+              - text: Container capabilities
+              - generic [ref=e366]:
+                - generic [ref=e367]: Selenium
+                - generic [ref=e368]: Linux
+                - generic [ref=e369]: Kubernetes
+    - generic [ref=e370]:
+      - generic [ref=e371]:
+        - heading "Portfolio services" [level=2] [ref=e373]
+        - generic [ref=e374]:
+          - article [ref=e375]:
+            - generic [ref=e376]: "01"
+            - generic [ref=e377]:
+              - heading "Profile" [level=3] [ref=e378]
+              - paragraph [ref=e379]: The operating model and professional overview.
+          - article [ref=e380]:
+            - generic [ref=e381]: "02"
+            - generic [ref=e382]:
+              - heading "Capabilities" [level=3] [ref=e383]
+              - paragraph [ref=e384]: Technical capabilities grouped as platform workloads.
+          - article [ref=e385]:
+            - generic [ref=e386]: "03"
+            - generic [ref=e387]:
+              - heading "Experience" [level=3] [ref=e388]
+              - paragraph [ref=e389]: Career milestones and role progression.
+          - article [ref=e390]:
+            - generic [ref=e391]: "04"
+            - generic [ref=e392]:
+              - heading "Projects" [level=3] [ref=e393]
+              - paragraph [ref=e394]: Selected platform and automation projects.
+          - article [ref=e395]:
+            - generic [ref=e396]: "05"
+            - generic [ref=e397]:
+              - heading "Certifications" [level=3] [ref=e398]
+              - paragraph [ref=e399]: Completed and in-progress certifications.
+      - generic [ref=e400]:
+        - generic [ref=e401]:
+          - heading "External access" [level=2] [ref=e402]
+          - generic [ref=e403]: "kind: Ingress"
+        - list [ref=e404]:
+          - listitem [ref=e405]:
+            - generic [ref=e406]:
+              - generic [ref=e407]: github.com
+              - generic [ref=e408]: Reachable
+            - link "github-profile-svc" [ref=e410] [cursor=pointer]:
+              - /url: https://github.com/zaheer1247
+            - paragraph [ref=e411]: Source code and project history.
+          - listitem [ref=e412]:
+            - generic [ref=e413]:
+              - generic [ref=e414]: linkedin.com
+              - generic [ref=e415]: Reachable
+            - link "linkedin-profile-svc" [ref=e417] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/zaheer1247
+            - paragraph [ref=e418]: Professional network and experience.
+          - listitem [ref=e419]:
+            - generic [ref=e420]:
+              - generic [ref=e421]: mailto
+              - generic [ref=e422]: Reachable
+            - link "contact-svc" [ref=e424] [cursor=pointer]:
+              - /url: mailto:zaheer1247@gmail.com
+            - paragraph [ref=e425]: Direct message.
+  - contentinfo [ref=e426]:
+    - text: zaheer-platform • production-ready foundation •
+    - generic [ref=e427]: © 2026
