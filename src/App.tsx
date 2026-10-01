@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { ClusterBoot } from './components/ClusterBoot'
-import { hasCompletedIntro } from './data/intro'
 import { ClusterHeader } from './components/ClusterHeader'
 import { EventLog } from './components/EventLog'
 import { MetricCard } from './components/MetricCard'
@@ -26,7 +25,7 @@ function initialSelectionFromUrl() {
 }
 
 export default function App() {
-  const [introComplete, setIntroComplete] = useState(hasCompletedIntro)
+  const [showBoot, setShowBoot] = useState(false)
   const [selectedNodeId, setSelectedNodeId] = useState(() => initialSelectionFromUrl().nodeId)
   const [selectedPodId, setSelectedPodId] = useState(() => initialSelectionFromUrl().podId)
   const profilePod = pods.find((pod) => pod.id === 'profile') ?? pods[0]
@@ -37,13 +36,13 @@ export default function App() {
 
   // Keeps the URL addressable/bookmarkable without adding history entries per click.
   useEffect(() => {
-    if (!introComplete || !selectedPod) return
+    if (!selectedPod) return
     const params = new URLSearchParams(window.location.search)
     params.set('node', selectedNode.id)
     params.set('pod', selectedPod.id)
     const nextUrl = `${window.location.pathname}?${params.toString()}`
     window.history.replaceState(null, '', nextUrl)
-  }, [introComplete, selectedNode.id, selectedPod])
+  }, [selectedNode.id, selectedPod])
 
   // The "Scheduled" line is derived from the selected node's actual first pod (not a
   // hardcoded name) so the activity log can never point at a pod that no longer exists.
@@ -59,14 +58,14 @@ export default function App() {
         ...events.map((event) => ({ ...event, id: `${selectedNode.id}-${event.id}`, resource: event.resource.includes('workload') ? `node/${selectedNode.name}` : event.resource })),
       ]
 
-  if (!introComplete) return <ClusterBoot onComplete={() => setIntroComplete(true)} />
+  if (showBoot) return <ClusterBoot onComplete={() => setShowBoot(false)} />
 
   return <div className="app-shell">
     <a className="skip-link" href="#overview">Skip to content</a>
-    <ClusterHeader cluster={cluster} onReplayBoot={() => setIntroComplete(false)} />
+    <ClusterHeader cluster={cluster} onReplayBoot={() => setShowBoot(true)} />
     <main id="overview">
       <div className="hero-metrics-wrapper">
-        <section className="hero"><div><p className="eyebrow eyebrow--accent">{cluster.environment} / {cluster.name}</p><h1>Engineering reliable platforms,<br /><em>from quality to cloud.</em></h1><p className="hero__copy">{profilePod.title} — {profilePod.summary} An interactive portfolio modeled as a healthy Kubernetes cluster; explore it node by node, pod by pod.</p><dl className="hero__facts">{profilePod.metadata?.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}<div className="hero__facts-button"><a className="hero__resume-link" href="/zaheer-abbas-resume.pdf" download>Download resume ↓</a></div></dl></div><div className="hero__status"><span className="pulse-dot" /> <span>System status: all services operational</span></div></section>
+        <section className="hero"><div><h1>Engineering reliable platforms,<br /><em>from quality to cloud.</em></h1><p className="hero__copy">{profilePod.title} — {profilePod.summary} An interactive portfolio modeled as a healthy Kubernetes cluster; explore it node by node, pod by pod.</p><dl className="hero__facts">{profilePod.metadata?.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}<div className="hero__facts-button"><a className="hero__resume-link" href="/zaheer-abbas-resume.pdf" download>Download resume ↓</a></div></dl></div><div className="hero__status"><span className="pulse-dot" /> <span>System status: all services operational</span></div></section>
         <section className="metrics" aria-label="Cluster metrics"><MetricCard label="Cluster health" value="100%" detail="All services available" /><MetricCard label="Active nodes" value={`${nodes.length}`} detail={`Identity to Certifications · ${nodes.length} workload pools`} /><MetricCard label="Running pods" value={`${runningPods}`} detail="Portfolio workloads online" /><MetricCard label="Platform focus" value="SRE" detail="Cloud-native engineering" /></section>
       </div>
       <section className="cluster-explorer" aria-label="Interactive Kubernetes cluster"><Panel title="Cluster topology" action={<span className="panel__hint">select a worker node</span>} className="topology topology--interactive"><div className="topology-scroll"><div className="control-plane"><div className="control-plane__line" /><div className="control-plane__card"><span className="control-plane__icon">✦</span><div><p className="eyebrow">Control plane</p><strong>kube-system</strong></div><StatusBadge status="healthy" label="Healthy" /></div></div><div className="topology-connector"><div className="topology-connector__drops" aria-hidden="true">{nodes.map((node) => <span key={node.id} className="topology-connector__drop" />)}</div></div><div className="nodes--cluster">{nodes.map((node) => <Node key={node.id} node={node} pods={pods.filter((pod) => pod.nodeId === node.id)} selected={node.id === selectedNodeId} selectedPodId={selectedPodId} dimmed={node.id !== selectedNodeId} onSelect={() => { setSelectedNodeId(node.id); setSelectedPodId(pods.find((pod) => pod.nodeId === node.id)?.id ?? selectedPodId) }} onPodSelect={(pod) => { setSelectedNodeId(node.id); setSelectedPodId(pod.id) }} />)}</div></div></Panel><div className="cluster-sidebar" aria-live="polite"><Panel title="Node activity" action={<span className="panel__hint">Live</span>}><EventLog events={selectionEvents} /></Panel><Panel title="Pod detail" action={<StatusBadge status={selectedPod.status} label={podStatusLabel(selectedPod)} />}>{selectedPod.kind === 'project' ? <ProjectPod pod={selectedPod} nodeName={selectedNode.name} /> : <PodDetail pod={selectedPod} nodeName={selectedNode.name} />}</Panel></div></section>
