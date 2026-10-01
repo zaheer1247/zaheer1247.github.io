@@ -15,4 +15,17 @@ Lighthouse 13.5, mobile preset (simulated 4G + 4x CPU), performance category onl
 | Requests | 7 (2 third-party hosts) | 6 (all same-origin) |
 | Transfer size | 122 KB | 121 KB |
 
-Caveats: this is a lab test on localhost, so real-world network latency to Google Fonts (which the "before" build still paid in the simulation) is only approximated. The load test does not capture idle repaint/CPU savings from R1–R3; confirm those with a DevTools Performance trace and Paint flashing.
+Caveat: this is a lab test on localhost, so real-world network latency to Google Fonts (which the "before" build still paid in the simulation) is only approximated.
+
+### Idle repaint trace (2026-10-01)
+
+Headless Chromium trace (`devtools.timeline` + `cc` categories) of the dashboard sitting idle for 10 s after the intro was skipped, run twice per build. "Before" = the commit before R1–R4; "After" = current.
+
+| Metric (10 s idle) | Before | After |
+|---|---|---|
+| Paint events | ~40,800 | **0** |
+| Time spent painting | ~1,870 ms | **0 ms** |
+| UpdateLayer events | ~48,300 | **3** |
+| Script (FunctionCall) time | 8–14 ms | ~4 ms |
+
+The "before" build repainted continuously (about 19% of the main thread busy painting while idle); the "after" build is fully idle, with the pulses running on the compositor. Selection latency was also measured: a click's synchronous React render takes about 1 ms (6x CPU slowdown included), so memoization (R5) is not needed.
