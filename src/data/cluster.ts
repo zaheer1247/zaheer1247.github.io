@@ -18,7 +18,7 @@ export const nodes: ClusterNode[] = [
 ]
 
 export const pods: PortfolioPod[] = [
-  { id: 'profile', name: 'profile-pod', namespace: 'identity', kind: 'profile', status: 'healthy', nodeId: 'identity', title: 'Zaheer Abbas', summary: 'Quality Engineer III building toward reliable cloud platforms.', technologies: ['Selenium', 'Linux', 'Kubernetes'], metadata: [{ label: 'Role', value: 'Quality Engineer III' }, { label: 'Runtime', value: '11+ years' }, { label: 'Career target', value: 'Cloud Platform Architect' }, { label: 'Operating model', value: 'DevOps / SRE' }],
+  { id: 'profile', name: 'profile-pod', namespace: 'identity', kind: 'profile', status: 'healthy', nodeId: 'identity', title: 'Zaheer Abbas', summary: 'Building toward reliable cloud platforms.', technologies: ['Selenium', 'Linux', 'Kubernetes'], metadata: [{ label: 'Runtime', value: '11+ years' }, { label: 'Career target', value: 'Cloud Platform Architect' }, { label: 'Operating model', value: 'DevOps / SRE' }],
     events: [
       { id: 'profile-scheduled', timestamp: '12:48:24', level: 'success', reason: 'Scheduled', resource: 'pod/profile-pod', message: 'Successfully assigned to node-01/identity.' },
       { id: 'profile-ready', timestamp: '12:48:26', level: 'success', reason: 'Ready', resource: 'pod/profile-pod', message: '11+ years of runtime, targeting Cloud Platform Architect.' },
