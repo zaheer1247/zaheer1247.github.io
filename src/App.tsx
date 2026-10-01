@@ -63,7 +63,7 @@ export default function App() {
 
   return <div className="app-shell">
     <a className="skip-link" href="#overview">Skip to content</a>
-    <ClusterHeader cluster={cluster} />
+    <ClusterHeader cluster={cluster} onReplayBoot={() => setIntroComplete(false)} />
     <main id="overview">
       <div className="hero-metrics-wrapper">
         <section className="hero"><div><p className="eyebrow eyebrow--accent">{cluster.environment} / {cluster.name}</p><h1>Engineering reliable platforms,<br /><em>from quality to cloud.</em></h1><p className="hero__copy">{profilePod.title} — {profilePod.summary} An interactive portfolio modeled as a healthy Kubernetes cluster; explore it node by node, pod by pod.</p><dl className="hero__facts">{profilePod.metadata?.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>)}</dl><a className="hero__resume-link" href="/zaheer-abbas-resume.pdf" download>Download resume ↓</a></div><div className="hero__status"><span className="pulse-dot" /> <span>System status: all services operational</span></div></section>
